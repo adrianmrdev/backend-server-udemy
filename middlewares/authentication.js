@@ -1,0 +1,31 @@
+var jwt = require('jsonwebtoken');
+
+var SEED = require('../config/config').SEED;
+
+//============================
+// Middleware: Verify token
+//============================
+exports.verifyToken = function(req, res, next) {
+
+    var token= req.query.token;
+
+    jwt.verify( token, SEED, ( err, decoded ) => {
+
+        if ( err ){
+            return res.status(401).json({
+                ok: false,
+                message: "Unauthorized: Token not valid",
+                errors: err
+            });
+        }
+
+        req.user = decoded.user;
+
+        next();
+
+    });
+
+}
+
+
+    
