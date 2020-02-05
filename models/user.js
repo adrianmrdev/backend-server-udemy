@@ -14,7 +14,8 @@ var userSchema = new Schema({
     email: { type: String, unique: true, required: [true, "User email is required"]},
     password: { type: String, required: [true, "User password is required"]},
     img: { type: String },
-    role: { type: String, required: [true, "User role is required"], default: "USER_ROLE", enum: validRoles}
+    role: { type: String, required: [true, "User role is required"], default: "USER_ROLE", enum: validRoles},
+    google: { type: Boolean, default: false }
 
 });
 
