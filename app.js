@@ -6,12 +6,17 @@ var bodyParser = require('body-parser')
 //Init variables
 var app = express();
 
-
 //Body parser
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS, PATCH"); 
+    next();
+});
 
 //Import routes
 var appRoutes = require('./routes/app');
@@ -34,6 +39,7 @@ mongoose.connection.openUri('mongodb://localhost:27017/hospitalDB',  ( err, res 
 
 //Server index config
 var serveIndex = require('serve-index');
+
 app.use(express.static(__dirname + '/'));
 app.use('/uploads', serveIndex(__dirname + '/uploads'));
 
