@@ -41,6 +41,36 @@ app.get('/', ( req, res, next ) => {
 
 });
 
+// ==========================================
+// Obtain Hospital by ID
+// ==========================================
+app.get('/:id', (req, res) => {
+    var id = req.params.id;
+    Doctor.findById(id)
+        .populate('user', 'name img email')
+        .populate('hospital')
+        .exec((err, doctor) => {
+            if (err) {
+                return res.status(500).json({
+                    ok: false,
+                    mensaje: 'Error searching doctor',
+                    errors: err
+                });
+            }
+            if (!doctor) {
+                return res.status(400).json({
+                    ok: false,
+                    message: 'Doctor with id ' + id + 'does not exists',
+                    errors: { message: 'Doctor with that ID does not exists' }
+                });
+            }
+            res.status(200).json({
+                ok: true,
+                doctor: doctor
+            });
+        })
+})
+
 //============================
 // Update hospital
 //============================

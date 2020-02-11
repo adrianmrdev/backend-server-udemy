@@ -118,7 +118,7 @@ function uploadByType( type, id, filename, res ){
                 return res.status(200).json({
                     ok: true,
                     message: 'Hospital img updated!',
-                    user: hospitalUpdated
+                    hospital: hospitalUpdated
                 })
 
             });
@@ -140,7 +140,7 @@ function uploadByType( type, id, filename, res ){
                 return res.status(200).json({
                     ok: true,
                     message: 'Doctor img updated!',
-                    user: doctorUpdated
+                    doctor: doctorUpdated
                 })
 
             });
