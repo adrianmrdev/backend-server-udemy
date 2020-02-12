@@ -127,10 +127,14 @@ function uploadByType( type, id, filename, res ){
     }else if ( type == 'doctors' ){
         Doctor.findById( id, ( err, doctor) =>{
 
-            var oldPath = './uploads/doctors/' + doctor.img;
+            if ( doctor.img ){
 
-            if ( fs.existsSync( oldPath ) ){
-                fs.unlinkSync(oldPath);
+                var oldPath = './uploads/doctors/' + doctor.img;
+
+                if ( fs.existsSync( oldPath ) ){
+                    fs.unlinkSync(oldPath);
+                }
+                
             }
 
             doctor.img = filename;
